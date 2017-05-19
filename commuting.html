@@ -1,0 +1,199 @@
+<html>
+<head>
+<title>Commuting</title>
+
+
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js"></script>
+
+<script type="text/javascript">
+    
+var directionDisplay;
+var directionsService = new google.maps.DirectionsService();     //Create a DirectionsService object which is required to communicate with the Google Maps API Direction Service
+var map;
+function initialize()
+{
+
+	directionsDisplay = new google.maps.DirectionsRenderer();        //Create a DirectionsRenderer object to render the directions results
+    var center = new google.maps.LatLng(0, 0);    //Map is centered at 0,0
+    var myOptions =
+    {
+            zoom:7,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            center: center
+    };
+    
+    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+    directionsDisplay.setMap(map);
+	
+	
+  			
+   	var trafficLayer = new google.maps.TrafficLayer();
+  	trafficLayer.setMap(map);
+ 	
+ 	 
+    var start = "calle rozabella, las rozas, madrid";     //Set the source/ origin
+    var end = "avenida peseta 50, Madrid";  //Set the destination
+    var request =
+    {
+            origin:start,
+            destination:end,
+            travelMode: google.maps.DirectionsTravelMode.DRIVING,          //Current travel mode is DRIVING. You can change to BICYCLING or WALKING and see the changes.
+            drivingOptions: {
+			    departureTime: new Date(/* now, or future date */),
+			    trafficModel: google.maps.TrafficModel.PESSIMISTIC
+			    //google.maps.TrafficModel.BEST_GUESS//
+			  }
+    };
+    
+    directionsService.route(request, function(response, status)
+    {
+            if (status === google.maps.DirectionsStatus.OK) //Check if request is successful.
+              
+            {
+              //alert(response.routes[0].legs[0].duration.text);
+            	directionsDisplay.setDirections(response);         //Display the directions result
+            	document.getElementById("duration").innerHTML =response.routes[0].legs[0].duration.text; 
+            }
+    });
+    
+    
+    directionsDisplay2 = new google.maps.DirectionsRenderer();        //Create a DirectionsRenderer object to render the directions results
+  	directionsDisplay2.setMap(map);
+  	
+    start = "calle rozabella, las rozas, madrid";     //Set the source/ origin
+    end = "camilo jose cela 10, madrid";  //Set the destination
+    request =
+    {
+            origin:start,
+            destination:end,
+            travelMode: google.maps.DirectionsTravelMode.DRIVING          //Current travel mode is DRIVING. You can change to BICYCLING or WALKING and see the changes.
+    };
+    
+    directionsService.route(request, function(response, status)
+    {
+            if (status === google.maps.DirectionsStatus.OK) //Check if request is successful.
+              
+            {
+              //alert(response.routes[0].legs[0].duration.text);
+            	directionsDisplay2.setDirections(response);         //Display the directions result
+            	document.getElementById("durationA").innerHTML += response.routes[0].legs[0].duration.text; 
+            }
+    });
+    
+    directionsDisplayM = new google.maps.DirectionsRenderer();        //Create a DirectionsRenderer object to render the directions results
+  	directionsDisplayM.setMap(map);
+  	
+    start = "calle rozabella, las rozas, madrid";     //Set the source/ origin
+    end = "calle la pedriza, aravaca, madrid";  //Set the destination
+    request =
+    {
+            origin:start,
+            destination:end,
+            travelMode: google.maps.DirectionsTravelMode.DRIVING          //Current travel mode is DRIVING. You can change to BICYCLING or WALKING and see the changes.
+    };
+    
+    directionsService.route(request, function(response, status)
+    {
+            if (status == google.maps.DirectionsStatus.OK) //Check if request is successful.
+              
+            {
+              //alert(response.routes[0].legs[0].duration.text);
+            	directionsDisplayM.setDirections(response);         //Display the directions result
+            	document.getElementById("durationM").innerHTML += response.routes[0].legs[0].duration.text; 
+            }
+    });
+}
+</script>
+
+</head>
+<body onload="initialize()">
+	
+	<!-- Main -->
+        <div id="main" class="onlyCenterPanel" style="visibility: visible;">
+
+            <!-- Header -->
+            <div id="header">
+                
+                <div id="divHeader" class="">
+					<div id="m4-titleBar"></div>
+                </div>
+
+            </div>
+
+            <!-- Content Page -->
+            <div id="content">
+                
+                <!-- Panel Left -->
+				<div id="panel-left" class="animation">
+					<!--content panel left -->
+					<div id="tables-panel-left">
+						<div id="contentFilters"></div>
+					</div>
+				</div>
+                
+                <!-- Panel Center -->
+                <div id="panel-center" class="animation">
+                    
+                    <!-- Center -->
+                    <div id="inner-center">
+
+                        <!-- Container Tables -->
+                        <div id="containerTables" class="" options="noHead">
+
+<div class="grid">
+	<div class="content">
+		<div id="map_canvas" style="height: 100%; width: 100%"></div>
+	</div>
+	<div class="sidebar" style="width: 315px;">
+		<div class ='m4-box myGroups'>
+		<div class="personalInfo m4-box">
+			<div class="photo"><img src="http://ofelia.meta4.com:9998/m4gateway/servlet/M4FileService/c421796003f8259c463107ee95455a0e"></div>
+			<div class="info">
+				<h3 class="m4-header-name">Jorge </h3>
+				<p id ='duration' class="m4-header-info"></p>
+				<p class="m4-header-info"></p>
+			</div>
+		</div>
+		
+		<div class="personalInfo m4-box">
+			<div class="photo"><img src="http://ofelia.meta4.com:9998/m4gateway/servlet/M4FileService/f4d64db0026470748733cd7ffe651ec5"></div>
+			<div class="info">
+				<h3 class="m4-header-name">Carlitos</h3>
+				<p id ='durationA' class="m4-header-info"></p>
+				<p class="m4-header-info"></p>
+			</div>
+		</div>
+		
+		<div class="personalInfo m4-box">
+			<div class="photo"><img src="http://ofelia.meta4.com:9998/m4gateway/servlet/M4FileService/e50026cd5adb2be48d835344beab46a6"></div>
+			<div class="info">
+				<h3 class="m4-header-name">Mendesito</h3>
+				<p id ='durationM' class="m4-header-info"></p>
+				<p class="m4-header-info"></p>
+			</div>
+		</div>
+		</div>
+	</div>
+</div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+                
+                <!-- Panel Right -->
+				<div id="panel-right" class="animation">
+					<!--content panel right -->
+					<div id="table-panel-right"></div>
+
+				</div>
+                
+            </div>
+
+        </div>
+        
+
+
+
+</body>
